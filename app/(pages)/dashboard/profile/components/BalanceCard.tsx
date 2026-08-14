@@ -10,7 +10,7 @@ import {
     Text,
     VStack,
 } from '@chakra-ui/react'
-import { Toaster, toaster } from "@/components/ui/toaster"
+import { toaster } from "@/components/ui/toaster"
 import { FaCoins } from 'react-icons/fa'
 
 interface BalanceCardProps {

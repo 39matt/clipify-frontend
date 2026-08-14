@@ -5,7 +5,6 @@ import {
   Badge,
   Box,
   Button,
-  Center,
   Flex,
   HStack,
   Heading,
@@ -21,15 +20,10 @@ import { NextPage } from 'next';
 import NextLink from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
-
-import {useEffect, useState, FormEvent, useMemo} from 'react';
-
-
-import { login } from './actions';
+import { useState, FormEvent, useMemo} from 'react';
 import {PageTransition} from "@/components/home/motion/page-transition";
 import {createClient} from "@/app/lib/supabase/client";
 
-const MotionBox = motion.create(Box);
 
 const Login: NextPage = () => {
   const router = useRouter();

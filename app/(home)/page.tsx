@@ -1,7 +1,6 @@
 'use client';
 
-import {Box, Steps} from '@chakra-ui/react';
-import { Global } from '@emotion/react';
+import {Box} from '@chakra-ui/react';
 import MarqueeSection from "@/components/home/MarqueeSection";
 import { HeroSection } from "@/components/home/HeroSection";
 import StatsSection from "@/components/home/StatsSection";

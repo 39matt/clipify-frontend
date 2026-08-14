@@ -221,18 +221,18 @@ export const Footer: React.FC = () => {
   );
 };
 
-/* Utility link component */
+import { Link } from '@chakra-ui/react';
+
 const FooterLink = ({
-                      href,
-                      children,
-                      isExternal = false,
+                        href,
+                        children,
+                        isExternal = false,
                     }: {
-  href: string;
-  children: React.ReactNode;
-  isExternal?: boolean;
+    href: string;
+    children: React.ReactNode;
+    isExternal?: boolean;
 }) => (
-    <Box
-        as="a"
+    <Link
         href={href}
         target={isExternal ? '_blank' : undefined}
         rel={isExternal ? 'noopener noreferrer' : undefined}
@@ -240,27 +240,28 @@ const FooterLink = ({
         fontSize="sm"
         fontWeight="500"
         position="relative"
+        textDecoration="none"
         _hover={{
-          color: 'white',
-          textDecoration: 'none',
-          _after: {
-            width: '100%',
-          },
+            color: 'white',
+            textDecoration: 'none',
+            _after: {
+                width: '100%',
+            },
         }}
         _after={{
-          content: '""',
-          position: 'absolute',
-          bottom: '-2px',
-          left: 0,
-          width: 0,
-          height: '1px',
-          bg: 'red.500',
-          transition: 'width 0.2s ease',
+            content: '""',
+            position: 'absolute',
+            bottom: '-2px',
+            left: 0,
+            width: 0,
+            height: '1px',
+            bg: 'red.500',
+            transition: 'width 0.2s ease',
         }}
         transition="color 0.2s"
     >
-      {children}
-    </Box>
+        {children}
+    </Link>
 );
 
 export default Footer;

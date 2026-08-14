@@ -6,7 +6,7 @@ import {
     AccordionItem,
     AccordionItemTrigger,
     AccordionItemContent,
-    AccordionItemContext,
+    useAccordionItemContext,
     Box,
     Button,
     Container,
@@ -30,6 +30,40 @@ interface FaqColumnProps {
     ctaButtonLink: string;
     accentColor: string;
 }
+
+/**
+ * Chakra v3 (built on Ark UI / Zag.js) exposes the item's expand state as
+ * `expanded`, not `open`, on the object returned by useAccordionItemContext().
+ * This must be called from a component rendered inside an AccordionItem.
+ */
+const AccordionToggleBadge: React.FC<{ accentColor: string }> = ({ accentColor }) => {
+    const item = useAccordionItemContext();
+
+    return (
+        <Flex
+            w="32px"
+            h="32px"
+            borderRadius="md"
+            bg={item.expanded ? accentColor : 'whiteAlpha.200'}
+            align="center"
+            justify="center"
+            flexShrink={0}
+            transition="all 0.3s ease"
+        >
+            <Box
+                as="span"
+                fontSize="xl"
+                lineHeight="1"
+                color="white"
+                fontWeight="bold"
+                transform={item.expanded ? 'rotate(45deg)' : 'rotate(0deg)'}
+                transition="transform 0.3s ease"
+            >
+                +
+            </Box>
+        </Flex>
+    );
+};
 
 const FaqColumn: React.FC<FaqColumnProps> = ({
                                                  title,
@@ -79,14 +113,14 @@ const FaqColumn: React.FC<FaqColumnProps> = ({
                         key={i}
                         value={`item-${i}`}
                         border="2px solid"
-                        borderColor="white/20"
+                        borderColor="whiteAlpha.200"
                         borderRadius="xl"
                         overflow="hidden"
-                        bg="white/5"
+                        bg="whiteAlpha.50"
                         transition="all 0.3s ease"
                         _hover={{
                             borderColor: accentColor,
-                            bg: 'white/10',
+                            bg: 'whiteAlpha.100',
                             transform: { base: 'none', md: 'translateX(4px)' },
                         }}
                     >
@@ -94,7 +128,7 @@ const FaqColumn: React.FC<FaqColumnProps> = ({
                             p={{ base: 4, md: 6 }}
                             justifyContent="space-between"
                             alignItems="center"
-                            _hover={{ bg: 'white/10' }}
+                            _hover={{ bg: 'whiteAlpha.100' }}
                             cursor="pointer"
                         >
                             <Heading
@@ -108,35 +142,8 @@ const FaqColumn: React.FC<FaqColumnProps> = ({
                                 {faq.q}
                             </Heading>
 
-                            {/* Custom + Badge that rotates to 45deg (+) -> (x) when expanded */}
-                            <AccordionItemContext>
-                                {(context) => (
-                                    <Flex
-                                        w="32px"
-                                        h="32px"
-                                        borderRadius="md"
-                                        bg={context.open ? accentColor : 'white/20'}
-                                        align="center"
-                                        justify="center"
-                                        flexShrink={0}
-                                        transition="all 0.3s ease"
-                                    >
-                                        <Box
-                                            as="span"
-                                            fontSize="xl"
-                                            lineHeight="1"
-                                            color="white"
-                                            fontWeight="bold"
-                                            transform={
-                                                context.open ? 'rotate(45deg)' : 'rotate(0deg)'
-                                            }
-                                            transition="transform 0.3s ease"
-                                        >
-                                            +
-                                        </Box>
-                                    </Flex>
-                                )}
-                            </AccordionItemContext>
+                            {/* Custom + badge that rotates to 45deg (x) when expanded */}
+                            <AccordionToggleBadge accentColor={accentColor} />
                         </AccordionItemTrigger>
 
                         <AccordionItemContent

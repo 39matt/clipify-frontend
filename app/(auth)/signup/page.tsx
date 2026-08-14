@@ -13,7 +13,6 @@ import {
     Input,
     InputGroup,
     SimpleGrid,
-    Spinner,
     Text,
     VStack,
 } from '@chakra-ui/react';
@@ -22,7 +21,7 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
-import {useEffect, useState, FormEvent, useSyncExternalStore} from 'react';
+import { useState, FormEvent} from 'react';
 
 import { signup } from './actions';
 import siteConfig from '@/components/data/config';

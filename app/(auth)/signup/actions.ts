@@ -7,18 +7,22 @@ import { createClient } from '../../lib/supabase/server'
 export async function signup(formData: FormData) {
   const supabase = await createClient()
 
-  const data = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
-  }
+  const email = formData.get('email') as string
+  const password = formData.get('password') as string
 
-  const { error } = await supabase.auth.signUp(data)
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+  })
 
   if (error) {
-    console.error(error)
-    redirect('/login?message=Could not register user')
+    return { error: error.message }
+  }
+
+  if (data.user && data.user.identities && data.user.identities.length === 0) {
+    return { error: 'Korisnik sa ovom email adresom već postoji.' }
   }
 
   revalidatePath('/', 'layout')
-  redirect('/')
+  redirect('/dashboard/profile')
 }

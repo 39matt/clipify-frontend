@@ -17,6 +17,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null)
     const [profile, setProfile] = useState<IUser | null>(null)
     const [loading, setLoading] = useState(true)
+    const [isAdmin, setIsAdmin] = useState(false)
 
     const supabase = useMemo(() => createClient(), [])
 
@@ -53,6 +54,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
                 setLoading(false)
             }
+            if (currentUser) {
+                const { data } = await supabase.auth.getClaims()
+                setIsAdmin(data?.claims?.user_role === 'admin')
+            } else {
+                setIsAdmin(false)
+            }
         }
 
         supabase.auth.getSession().then(({ data: { session } }: { data: { session: Session | null } }) => {
@@ -65,13 +72,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             handleAuthChange(session)
         })
 
+
         return () => {
             isMounted = false
             subscription.unsubscribe()
         }
     }, [supabase, fetchProfile])
-
-    const isAdmin = user?.app_metadata?.role === 'admin'
 
     return (
         <AuthContext.Provider value={{ user, profile, loading, isAdmin }}>

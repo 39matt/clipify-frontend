@@ -26,7 +26,6 @@ const BalanceCard: React.FC<BalanceCardProps> = ({
                                                  }) => {
     const [loading, setLoading] = useState(false)
 
-    // Disables payout if balance is under $10 OR if last request was made < 24 hours ago
     const hoursSinceLastRequest = useMemo(() => {
         if (!payoutRequested) return Infinity
         const now = new Date().getTime()
@@ -76,52 +75,51 @@ const BalanceCard: React.FC<BalanceCardProps> = ({
             w="full"
             bg="gray.900"
             color="white"
-            border="2px solid"
+            border="1px solid"
             borderColor="white/15"
-            borderRadius="2xl"
-            p={{ base: 6, md: 8 }}
-            boxShadow="0 20px 60px rgba(0,0,0,0.4)"
+            borderRadius="xl"
+            p={{ base: 4, md: 5 }}
+            boxShadow="0 10px 30px rgba(0,0,0,0.35)"
             transition="all 0.3s ease"
             _hover={{ borderColor: 'green.500/40' }}
         >
-            <Card.Header p={0} mb={6} textAlign="center">
-                <Heading fontSize={{ base: 'xl', md: '2xl' }} fontWeight="900">
-                    Vaš Trenutni Saldo
+            <Card.Header p={0} mb={4} textAlign="center">
+                <Heading fontSize={{ base: 'sm', md: 'md' }} fontWeight="800">
+                    Vaš Trenutni Balans
                 </Heading>
             </Card.Header>
 
             <Card.Body p={0}>
-                <VStack gap={6} align="center">
+                <VStack gap={3} align="center">
                     <Center
-                        w="80px"
-                        h="80px"
-                        borderRadius="2xl"
+                        w="48px"
+                        h="48px"
+                        borderRadius="xl"
                         bg="green.500/10"
                         color="green.400"
                         border="1px solid"
                         borderColor="green.500/30"
-                        boxShadow="0 0 30px rgba(34, 197, 94, 0.2)"
                     >
-                        <FaCoins size={36} />
+                        <FaCoins size={20} />
                     </Center>
 
                     <Box textAlign="center">
                         <Text
-                            fontSize={{ base: '4xl', md: '6xl' }}
-                            fontWeight="900"
+                            fontSize={{ base: '2xl', md: '3xl' }}
+                            fontWeight="800"
                             color="white"
-                            letterSpacing="-0.03em"
+                            letterSpacing="-0.02em"
                             lineHeight="1"
                         >
                             ${balance.toFixed(2)}
                         </Text>
                         <Text
-                            fontSize="xs"
+                            fontSize="2xs"
                             color="gray.400"
                             fontWeight="700"
                             textTransform="uppercase"
                             letterSpacing="wider"
-                            mt={2}
+                            mt={1}
                         >
                             Dostupno za isplatu
                         </Text>
@@ -132,20 +130,18 @@ const BalanceCard: React.FC<BalanceCardProps> = ({
                         disabled={isPayoutDisabled || loading}
                         loading={loading}
                         loadingText="Slanje..."
+                        size="sm"
                         bg="green.500"
                         color="white"
                         border="none"
                         w={{ base: 'full', sm: '75%' }}
-                        py={6}
-                        borderRadius="xl"
-                        fontWeight="800"
-                        fontSize="md"
+                        py={4}
+                        borderRadius="lg"
+                        fontWeight="700"
+                        fontSize="sm"
                         _hover={{
                             bg: 'green.600',
-                            transform: 'translateY(-2px)',
-                            boxShadow: '0 12px 24px rgba(34, 197, 94, 0.3)',
                         }}
-                        _active={{ transform: 'translateY(0)' }}
                         transition="all 0.2s"
                     >
                         Zatraži isplatu
@@ -153,18 +149,18 @@ const BalanceCard: React.FC<BalanceCardProps> = ({
                 </VStack>
             </Card.Body>
 
-            <Card.Footer p={0} mt={8}>
+            <Card.Footer p={0} mt={4}>
                 <Text
-                    fontSize="xs"
+                    fontSize="2xs"
                     fontWeight="500"
                     color="gray.400"
                     textAlign="center"
                     w="full"
-                    lineHeight="1.6"
+                    lineHeight="1.5"
                 >
                     Minimalni iznos za isplatu je <strong>$10</strong>.
                     <br />
-                    Nakon svake kampanje sabiraju se pregledi validnih videa i dodaju na vaša sredstva.
+                    Nakon svake kampanje sabiraju se pregledi validnih videa i dodaju na vaša balans.
                 </Text>
             </Card.Footer>
         </Card.Root>

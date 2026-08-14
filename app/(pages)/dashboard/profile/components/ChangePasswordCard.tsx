@@ -92,24 +92,24 @@ const ChangePasswordCard: React.FC<ChangePasswordCardProps> = ({ user }) => {
             w="full"
             bg="gray.900"
             color="white"
-            border="2px solid"
+            border="1px solid"
             borderColor="white/15"
-            borderRadius="2xl"
-            p={{ base: 6, md: 8 }}
-            boxShadow="0 20px 60px rgba(0,0,0,0.4)"
+            borderRadius="xl"
+            p={{ base: 4, md: 5 }}
+            boxShadow="0 10px 30px rgba(0,0,0,0.35)"
             transition="all 0.3s ease"
             _hover={{ borderColor: 'red.500/30' }}
         >
-            <Card.Header p={0} mb={6}>
+            <Card.Header p={0} mb={4}>
                 <Heading
-                    fontSize={{ base: 'xl', md: '2xl' }}
-                    fontWeight="900"
+                    fontSize={{ base: 'sm', md: 'md' }}
+                    fontWeight="800"
                     display="flex"
                     alignItems="center"
-                    gap={3}
+                    gap={2}
                 >
                     <Box color="red.500">
-                        <FiLock size={22} />
+                        <FiLock size={16} />
                     </Box>
                     Izmeni Šifru
                 </Heading>
@@ -117,18 +117,18 @@ const ChangePasswordCard: React.FC<ChangePasswordCardProps> = ({ user }) => {
 
             <Card.Body p={0}>
                 <form onSubmit={handleSubmit}>
-                    <VStack gap={5} align="stretch">
+                    <VStack gap={3} align="stretch">
                         {error && (
                             <Alert.Root
                                 status="error"
-                                borderRadius="xl"
+                                borderRadius="lg"
                                 bg="red.500/10"
                                 border="1px solid"
                                 borderColor="red.500/30"
-                                p={4}
+                                p={3}
                             >
                                 <Alert.Indicator color="red.500" />
-                                <Alert.Title fontSize="sm" fontWeight="700" color="red.400">
+                                <Alert.Title fontSize="xs" fontWeight="700" color="red.400">
                                     {error}
                                 </Alert.Title>
                             </Alert.Root>
@@ -137,22 +137,22 @@ const ChangePasswordCard: React.FC<ChangePasswordCardProps> = ({ user }) => {
                         {success && (
                             <Alert.Root
                                 status="success"
-                                borderRadius="xl"
+                                borderRadius="lg"
                                 bg="green.500/10"
                                 border="1px solid"
                                 borderColor="green.500/30"
-                                p={4}
+                                p={3}
                             >
                                 <Alert.Indicator color="green.500" />
-                                <Alert.Title fontSize="sm" fontWeight="700" color="green.400">
+                                <Alert.Title fontSize="xs" fontWeight="700" color="green.400">
                                     {success}
                                 </Alert.Title>
                             </Alert.Root>
                         )}
 
-                        <VStack gap={2} align="stretch">
+                        <VStack gap={1} align="stretch">
                             <Text
-                                fontSize="xs"
+                                fontSize="2xs"
                                 fontWeight="700"
                                 color="gray.400"
                                 textTransform="uppercase"
@@ -166,11 +166,11 @@ const ChangePasswordCard: React.FC<ChangePasswordCardProps> = ({ user }) => {
                                         aria-label={showCurrent ? 'Sakrij' : 'Prikaži'}
                                         onClick={() => setShowCurrent(!showCurrent)}
                                         variant="ghost"
-                                        size="sm"
+                                        size="xs"
                                         color="gray.400"
                                         _hover={{ color: 'white', bg: 'transparent' }}
                                     >
-                                        {showCurrent ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+                                        {showCurrent ? <FiEyeOff size={14} /> : <FiEye size={14} />}
                                     </IconButton>
                                 }
                             >
@@ -183,9 +183,9 @@ const ChangePasswordCard: React.FC<ChangePasswordCardProps> = ({ user }) => {
                                     bg="white/5"
                                     border="1px solid"
                                     borderColor="white/10"
-                                    borderRadius="xl"
+                                    borderRadius="lg"
                                     color="white"
-                                    h="50px"
+                                    h="38px"
                                     fontSize="sm"
                                     _hover={{ borderColor: 'red.500/50' }}
                                     _focus={{
@@ -197,9 +197,9 @@ const ChangePasswordCard: React.FC<ChangePasswordCardProps> = ({ user }) => {
                             </InputGroup>
                         </VStack>
 
-                        <VStack gap={2} align="stretch">
+                        <VStack gap={1} align="stretch">
                             <Text
-                                fontSize="xs"
+                                fontSize="2xs"
                                 fontWeight="700"
                                 color="gray.400"
                                 textTransform="uppercase"
@@ -213,11 +213,11 @@ const ChangePasswordCard: React.FC<ChangePasswordCardProps> = ({ user }) => {
                                         aria-label={showNew ? 'Sakrij' : 'Prikaži'}
                                         onClick={() => setShowNew(!showNew)}
                                         variant="ghost"
-                                        size="sm"
+                                        size="xs"
                                         color="gray.400"
                                         _hover={{ color: 'white', bg: 'transparent' }}
                                     >
-                                        {showNew ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+                                        {showNew ? <FiEyeOff size={14} /> : <FiEye size={14} />}
                                     </IconButton>
                                 }
                             >
@@ -230,9 +230,9 @@ const ChangePasswordCard: React.FC<ChangePasswordCardProps> = ({ user }) => {
                                     bg="white/5"
                                     border="1px solid"
                                     borderColor="white/10"
-                                    borderRadius="xl"
+                                    borderRadius="lg"
                                     color="white"
-                                    h="50px"
+                                    h="38px"
                                     fontSize="sm"
                                     _hover={{ borderColor: 'red.500/50' }}
                                     _focus={{
@@ -244,9 +244,9 @@ const ChangePasswordCard: React.FC<ChangePasswordCardProps> = ({ user }) => {
                             </InputGroup>
                         </VStack>
 
-                        <VStack gap={2} align="stretch">
+                        <VStack gap={1} align="stretch">
                             <Text
-                                fontSize="xs"
+                                fontSize="2xs"
                                 fontWeight="700"
                                 color="gray.400"
                                 textTransform="uppercase"
@@ -260,11 +260,11 @@ const ChangePasswordCard: React.FC<ChangePasswordCardProps> = ({ user }) => {
                                         aria-label={showConfirm ? 'Sakrij' : 'Prikaži'}
                                         onClick={() => setShowConfirm(!showConfirm)}
                                         variant="ghost"
-                                        size="sm"
+                                        size="xs"
                                         color="gray.400"
                                         _hover={{ color: 'white', bg: 'transparent' }}
                                     >
-                                        {showConfirm ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+                                        {showConfirm ? <FiEyeOff size={14} /> : <FiEye size={14} />}
                                     </IconButton>
                                 }
                             >
@@ -277,9 +277,9 @@ const ChangePasswordCard: React.FC<ChangePasswordCardProps> = ({ user }) => {
                                     bg="white/5"
                                     border="1px solid"
                                     borderColor="white/10"
-                                    borderRadius="xl"
+                                    borderRadius="lg"
                                     color="white"
-                                    h="50px"
+                                    h="38px"
                                     fontSize="sm"
                                     _hover={{ borderColor: 'red.500/50' }}
                                     _focus={{
@@ -295,21 +295,19 @@ const ChangePasswordCard: React.FC<ChangePasswordCardProps> = ({ user }) => {
                             type="submit"
                             loading={loading}
                             loadingText="Ažuriranje..."
+                            size="sm"
                             bg="red.500"
                             color="white"
                             border="none"
                             w="full"
-                            h="50px"
-                            mt={2}
-                            borderRadius="xl"
-                            fontWeight="800"
+                            h="38px"
+                            mt={1}
+                            borderRadius="lg"
+                            fontWeight="700"
                             fontSize="sm"
                             _hover={{
                                 bg: 'red.600',
-                                transform: 'translateY(-2px)',
-                                boxShadow: '0 10px 20px rgba(239, 68, 68, 0.3)',
                             }}
-                            _active={{ transform: 'translateY(0)' }}
                             transition="all 0.2s"
                         >
                             Sačuvaj Novu Šifru

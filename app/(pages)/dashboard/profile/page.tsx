@@ -43,7 +43,7 @@ function DottedBackgroundGlobal() {
 }
 
 const Profile: NextPage = () => {
-    const { user, profile, loading } = useAuth()
+    const { user, loading } = useAuth()
 
     if (loading) {
         return (
@@ -64,7 +64,6 @@ const Profile: NextPage = () => {
                 px={{ base: 4, md: 8 }}
             >
                 <Container maxW="6xl">
-                    {/* Compact header bar instead of a big hero */}
                     <MotionBox
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -106,7 +105,7 @@ const Profile: NextPage = () => {
                                     </Box>
                                 </Flex>
 
-                                {!profile?.discordUsername ? (
+                                {!user?.discordUsername ? (
                                     <Button
                                         onClick={() => {}}
                                         size="sm"
@@ -117,7 +116,7 @@ const Profile: NextPage = () => {
                                         px={4}
                                         fontWeight="700"
                                         fontSize="xs"
-                                        _hover={{ bg: '#5b6eae' }}
+                                        _hover={{ bg: '#7289da' }}
                                     >
                                         <FaDiscord size={14} style={{ marginRight: '6px' }} />
                                         Poveži Discord
@@ -135,16 +134,14 @@ const Profile: NextPage = () => {
                                         fontSize="2xs"
                                     >
                                         <FaDiscord size={12} style={{ marginRight: '4px', display: 'inline' }} />
-                                        {profile.discordUsername}
+                                        {user.discordUsername}
                                     </Badge>
                                 )}
                             </Flex>
                         </Card.Root>
                     </MotionBox>
 
-                    {/* Main dashboard grid: balance/payout left, settings right */}
                     <SimpleGrid columns={{ base: 1, lg: 2 }} gap={5} alignItems="start">
-                        {/* Left column */}
                         <MotionVStack
                             initial={{ opacity: 0, y: 16 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -154,20 +151,19 @@ const Profile: NextPage = () => {
                         >
                             {user?.id && (
                                 <BalanceCard
-                                    balance={profile?.balance ?? 0}
+                                    balance={user?.balance ?? 0}
                                     uid={user.id}
-                                    payoutRequested={profile?.payoutRequested}
+                                    payoutRequested={user?.payoutRequested}
                                 />
                             )}
                             {user?.id && (
                                 <EditPaymentInfoCard
-                                    discordUsername={profile?.discordUsername || user.id}
-                                    userInfo={profile}
+                                    discordUsername={user?.discordUsername || user.id}
+                                    userInfo={user}
                                 />
                             )}
                         </MotionVStack>
 
-                        {/* Right column */}
                         <MotionVStack
                             initial={{ opacity: 0, y: 16 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -175,7 +171,7 @@ const Profile: NextPage = () => {
                             gap={5}
                             align="stretch"
                         >
-                            <ChangePasswordCard user={profile} />
+                            <ChangePasswordCard user={user} />
                         </MotionVStack>
                     </SimpleGrid>
                 </Container>

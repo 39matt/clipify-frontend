@@ -7,21 +7,21 @@ import {AuthContextType} from "@/app/lib/models/authContext";
 import {IUser} from "@/app/lib/models/User";
 
 const AuthContext = createContext<AuthContextType>({
+    supabaseUser: null,
     user: null,
-    profile: null,
     loading: true,
     isAdmin: false,
 })
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-    const [user, setUser] = useState<User | null>(null)
-    const [profile, setProfile] = useState<IUser | null>(null)
+    const [supabaseUser, setSupabaseUser] = useState<User | null>(null)
+    const [user, setUser] = useState<IUser | null>(null)
     const [loading, setLoading] = useState(true)
     const [isAdmin, setIsAdmin] = useState(false)
 
     const supabase = useMemo(() => createClient(), [])
 
-    const fetchProfile = useCallback(async (userId: string) => {
+    const fetchUser = useCallback(async (userId: string) => {
         try {
             const { data, error } = await supabase
                 .from('users')
@@ -30,7 +30,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 .single()
 
             if (!error && data) {
-                setProfile(data as IUser)
+                setUser(data as IUser)
             }
         } catch (err) {
             console.error('Error fetching user profile:', err)
@@ -44,12 +44,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             const currentUser = session?.user ?? null
 
             if (isMounted) {
-                setUser(currentUser)
+                setSupabaseUser(currentUser)
 
                 if (currentUser) {
-                    await fetchProfile(currentUser.id)
+                    await fetchUser(currentUser.id)
                 } else {
-                    setProfile(null)
+                    setUser(null)
                 }
 
                 setLoading(false)
@@ -77,10 +77,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             isMounted = false
             subscription.unsubscribe()
         }
-    }, [supabase, fetchProfile])
+    }, [supabase, fetchUser])
 
     return (
-        <AuthContext.Provider value={{ user, profile, loading, isAdmin }}>
+        <AuthContext.Provider value={{ supabaseUser, user, loading, isAdmin }}>
             {children}
         </AuthContext.Provider>
     )

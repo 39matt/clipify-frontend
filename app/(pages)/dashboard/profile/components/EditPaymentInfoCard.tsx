@@ -83,7 +83,7 @@ const EditPaymentInfoCard: React.FC<EditPaymentInfoCardProps> = ({
             p={{ base: 4, md: 5 }}
             boxShadow="0 10px 30px rgba(0,0,0,0.35)"
             transition="all 0.3s ease"
-            _hover={{ borderColor: 'red.500/30' }}
+
         >
             <Card.Header p={0} mb={4}>
                 <Heading
@@ -155,7 +155,6 @@ const EditPaymentInfoCard: React.FC<EditPaymentInfoCardProps> = ({
                                     h="38px"
                                     fontSize="sm"
                                     fontWeight="600"
-                                    _hover={{ borderColor: 'red.500/50' }}
                                     _focus={{
                                         borderColor: 'red.500',
                                         bg: 'gray.900',
@@ -194,7 +193,6 @@ const EditPaymentInfoCard: React.FC<EditPaymentInfoCardProps> = ({
                                     h="38px"
                                     fontSize="sm"
                                     fontFamily="mono"
-                                    _hover={{ borderColor: 'red.500/50' }}
                                     _focus={{
                                         borderColor: 'red.500',
                                         bg: 'white/10',

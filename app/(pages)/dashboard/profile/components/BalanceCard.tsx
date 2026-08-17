@@ -81,7 +81,6 @@ const BalanceCard: React.FC<BalanceCardProps> = ({
             p={{ base: 4, md: 5 }}
             boxShadow="0 10px 30px rgba(0,0,0,0.35)"
             transition="all 0.3s ease"
-            _hover={{ borderColor: 'green.500/40' }}
         >
             <Card.Header p={0} mb={4} textAlign="center">
                 <Heading fontSize={{ base: 'sm', md: 'md' }} fontWeight="800">

@@ -3,8 +3,8 @@
 import { createContext, useContext, useEffect, useState, useMemo, useCallback } from 'react'
 import { AuthChangeEvent, Session, User } from '@supabase/supabase-js'
 import { createClient } from '../supabase/client'
-import {AuthContextType} from "@/app/lib/models/authContext";
-import {IUser} from "@/app/lib/models/User";
+import { AuthContextType } from "@/app/lib/models/authContext"
+import { IUser } from "@/app/lib/models/User"
 
 const AuthContext = createContext<AuthContextType>({
     supabaseUser: null,
@@ -21,21 +21,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const supabase = useMemo(() => createClient(), [])
 
-    const fetchUser = useCallback(async (userId: string) => {
+    const fetchUser = useCallback(async (token: string) => {
         try {
-            const { data, error } = await supabase
-                .from('users')
-                .select('*')
-                .eq('id', userId)
-                .single()
+            const res = await fetch('/api/users/me', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            })
 
-            if (!error && data) {
-                setUser(data as IUser)
+            if (res.ok) {
+                const userData = await res.json()
+                setUser(userData)
+            } else {
+                setUser(null)
             }
         } catch (err) {
-            console.error('Error fetching user profile:', err)
+            console.error('Error fetching user profile from Go API:', err)
+            setUser(null)
         }
-    }, [supabase])
+    }, [])
 
     useEffect(() => {
         let isMounted = true
@@ -46,14 +50,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             if (isMounted) {
                 setSupabaseUser(currentUser)
 
-                if (currentUser) {
-                    await fetchUser(currentUser.id)
+                if (session?.access_token) {
+                    await fetchUser(session.access_token)
                 } else {
                     setUser(null)
                 }
 
                 setLoading(false)
             }
+
             if (currentUser) {
                 const { data } = await supabase.auth.getClaims()
                 setIsAdmin(data?.claims?.user_role === 'admin')
@@ -71,7 +76,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         } = supabase.auth.onAuthStateChange((_event: AuthChangeEvent, session: Session | null) => {
             handleAuthChange(session)
         })
-
 
         return () => {
             isMounted = false

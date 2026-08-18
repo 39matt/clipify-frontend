@@ -43,14 +43,35 @@ function DottedBackgroundGlobal() {
 }
 
 const Profile: NextPage = () => {
-    const { user, loading } = useAuth()
+    const { user, loading } = useAuth();
+
+    const handleLinkDiscord = async () => {
+        if (!user?.email) {
+            return;
+        }
+
+        if (user.discordUsername || user.connected) {
+            alert(`Korisnik sa emailom "${user.email}" je već povezao nalog.`);
+            return;
+        }
+
+        localStorage.setItem('userEmail', user.email);
+        const params = new URLSearchParams({
+            client_id: process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID!,
+            redirect_uri: process.env.NEXT_PUBLIC_DISCORD_REDIRECT_URI!,
+            response_type: 'code',
+            scope: 'identify email',
+            prompt: 'consent',
+        });
+        window.location.href = `https://discord.com/api/oauth2/authorize?${params.toString()}`;
+    };
 
     if (loading) {
         return (
             <Center minH="100vh" bg="black">
                 <Spinner size="xl" color="red.500" />
             </Center>
-        )
+        );
     }
 
     return (
@@ -107,7 +128,7 @@ const Profile: NextPage = () => {
 
                                 {!user?.discordUsername ? (
                                     <Button
-                                        onClick={() => {}}
+                                        onClick={handleLinkDiscord}
                                         size="sm"
                                         bg="#7289da"
                                         color="white"
@@ -134,7 +155,7 @@ const Profile: NextPage = () => {
                                         fontSize="2xs"
                                     >
                                         <FaDiscord size={12} style={{ marginRight: '4px', display: 'inline' }} />
-                                        {user.discordUsername}
+                                        {user?.discordUsername}
                                     </Badge>
                                 )}
                             </Flex>
@@ -158,7 +179,7 @@ const Profile: NextPage = () => {
                             )}
                             {user?.id && (
                                 <EditPaymentInfoCard
-                                    discordUsername={user?.discordUsername || user.id}
+                                    discordUsername={user.discordUsername || user.id}
                                     userInfo={user}
                                 />
                             )}

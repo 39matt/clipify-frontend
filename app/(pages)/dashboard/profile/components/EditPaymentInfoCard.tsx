@@ -15,22 +15,23 @@ import {
 } from '@chakra-ui/react'
 import { FaCreditCard } from 'react-icons/fa'
 import { IUser } from '@/app/lib/models/User'
+import {apiFetch} from "@/app/lib/apiClient";
 
 interface EditPaymentInfoCardProps {
     discordUsername: string | null
-    userInfo: IUser | null
+    user: IUser | null
 }
 
 const EditPaymentInfoCard: React.FC<EditPaymentInfoCardProps> = ({
                                                                      discordUsername,
-                                                                     userInfo,
+                                                                     user,
                                                                  }) => {
     const [userEditedAddress, setUserEditedAddress] = useState<string | null>(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [success, setSuccess] = useState<string | null>(null)
 
-    const walletAddress = userEditedAddress ?? userInfo?.walletAddress ?? ''
+    const walletAddress = userEditedAddress ?? user?.walletAddress ?? ''
 
     const validateWalletAddress = (address: string): boolean => {
         const ethereumAddressRegex = /^0x[a-fA-F0-9]{40}$/
@@ -50,10 +51,9 @@ const EditPaymentInfoCard: React.FC<EditPaymentInfoCardProps> = ({
         }
 
         try {
-            const response = await fetch('/api/user/update-wallet-address', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ walletAddress, discordUsername }),
+            const response = await apiFetch('/api/users/update-wallet-address', {
+                method: 'PATCH',
+                body: JSON.stringify({ walletAddress }),
             })
 
             if (!response.ok) {

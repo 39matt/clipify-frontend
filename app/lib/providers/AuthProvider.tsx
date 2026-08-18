@@ -5,6 +5,7 @@ import { AuthChangeEvent, Session, User } from '@supabase/supabase-js'
 import { createClient } from '../supabase/client'
 import { AuthContextType } from "@/app/lib/models/authContext"
 import { IUser } from "@/app/lib/models/User"
+import {apiFetch} from "@/app/lib/apiClient";
 
 const AuthContext = createContext<AuthContextType>({
     supabaseUser: null,
@@ -21,13 +22,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const supabase = useMemo(() => createClient(), [])
 
-    const fetchUser = useCallback(async (token: string) => {
+    const fetchUser = useCallback(async () => {
         try {
-            const res = await fetch('/api/users/me', {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            })
+            const res = await apiFetch('/api/users/me')
 
             if (res.ok) {
                 const userData = await res.json()
@@ -51,7 +48,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 setSupabaseUser(currentUser)
 
                 if (session?.access_token) {
-                    await fetchUser(session.access_token)
+                    await fetchUser()
                 } else {
                     setUser(null)
                 }

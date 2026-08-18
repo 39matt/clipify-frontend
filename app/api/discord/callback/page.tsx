@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Card, Center, Heading, Spinner, Text, VStack } from '@chakra-ui/react';
 import { toaster } from '@/components/ui/toaster';
 import { createClient } from '@/app/lib/supabase/client';
+import {apiFetch} from "@/app/lib/apiClient";
 
 export default function DiscordCallbackContent() {
     const router = useRouter();
@@ -31,20 +32,8 @@ export default function DiscordCallbackContent() {
 
         const linkAccount = async () => {
             try {
-                const supabase = createClient();
-
-                const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-
-                if (sessionError || !session?.access_token) {
-                    throw new Error('Vaša sesija je istekla. Molimo vas prijavite se ponovo.');
-                }
-
-                const response = await fetch('/api/users/link-discord', {
+                const response = await apiFetch('/api/users/link-discord', {
                     method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${session.access_token}`,
-                    },
                     body: JSON.stringify({ code }),
                 });
 

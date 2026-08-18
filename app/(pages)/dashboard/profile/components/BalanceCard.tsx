@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { toaster } from "@/components/ui/toaster"
 import { FaCoins } from 'react-icons/fa'
+import {apiFetch} from "@/app/lib/apiClient";
 
 interface BalanceCardProps {
     balance: number
@@ -38,9 +39,8 @@ const BalanceCard: React.FC<BalanceCardProps> = ({
     const requestPayout = async () => {
         setLoading(true)
         try {
-            const response = await fetch(`/api/user/request-payout?uid=${uid}`, {
+            const response = await apiFetch(`/api/users/request-payout`, {
                 method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
             })
 
             if (!response.ok) {

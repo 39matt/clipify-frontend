@@ -180,7 +180,7 @@ const Profile: NextPage = () => {
                             {user?.id && (
                                 <EditPaymentInfoCard
                                     discordUsername={user.discordUsername || user.id}
-                                    userInfo={user}
+                                    user={user}
                                 />
                             )}
                         </MotionVStack>

@@ -14,7 +14,7 @@ export default function NotFound() {
                     Stranica koju tražite ne postoji.
                 </Text>
                 <Button asChild size="sm" bg="white" color="black" _hover={{ bg: 'gray.200' }}>
-                    <Link href="/dashboard">Nazad na Dashboard</Link>
+                    <Link href="/dashboard/profile">Nazad na Dashboard</Link>
                 </Button>
             </VStack>
         </Center>

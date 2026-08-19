@@ -56,7 +56,7 @@ export const Header: React.FC = () => {
     }
 
     const navLinks = [
-        { label: 'Kampanje', href: '/dashboard/campaigns', icon: FiBriefcase },
+        { label: 'Kampanje', href: '/campaigns', icon: FiBriefcase },
         { label: 'Nalozi', href: '/dashboard/accounts', icon: FiUser },
     ]
 

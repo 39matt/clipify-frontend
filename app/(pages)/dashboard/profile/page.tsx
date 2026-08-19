@@ -83,6 +83,7 @@ const Profile: NextPage = () => {
                 color="white"
                 py={{ base: 6, md: 10 }}
                 px={{ base: 4, md: 8 }}
+                pb={{ base: 28, md: 12 }}
             >
                 <Container maxW="6xl">
                     <MotionBox

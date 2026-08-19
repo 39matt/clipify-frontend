@@ -1,13 +1,12 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Card, Center, Heading, Spinner, Text, VStack } from '@chakra-ui/react';
 import { toaster } from '@/components/ui/toaster';
-import { createClient } from '@/app/lib/supabase/client';
-import {apiFetch} from "@/app/lib/apiClient";
+import { apiFetch } from "@/app/lib/apiClient";
 
-export default function DiscordCallbackContent() {
+function DiscordCallbackContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -120,5 +119,19 @@ export default function DiscordCallbackContent() {
                 </Card.Body>
             </Card.Root>
         </Center>
+    );
+}
+
+export default function DiscordCallbackPage() {
+    return (
+        <Suspense
+            fallback={
+                <Center minH="100vh" bg="black" color="white">
+                    <Spinner size="xl" color="#7289da" />
+                </Center>
+            }
+        >
+            <DiscordCallbackContent />
+        </Suspense>
     );
 }

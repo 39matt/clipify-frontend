@@ -39,7 +39,7 @@ const BalanceCard: React.FC<BalanceCardProps> = ({
     const requestPayout = async () => {
         setLoading(true)
         try {
-            const response = await apiFetch(`/api/users/request-payout`, {
+            const response = await apiFetch(`/users/request-payout`, {
                 method: 'PATCH',
             })
 

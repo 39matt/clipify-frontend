@@ -32,7 +32,7 @@ export default function DiscordCallbackContent() {
 
         const linkAccount = async () => {
             try {
-                const response = await apiFetch('/api/users/link-discord', {
+                const response = await apiFetch('/users/link-discord', {
                     method: 'PATCH',
                     body: JSON.stringify({ code }),
                 });

@@ -11,7 +11,7 @@ export async function apiFetch(path: string, options: RequestInit = {}) {
         headers.set('Authorization', `Bearer ${session.access_token}`)
     }
 
-    return fetch(path, {
+    return fetch("/api" + path, {
         ...options,
         headers,
     })

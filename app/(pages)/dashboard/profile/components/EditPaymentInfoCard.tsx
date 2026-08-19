@@ -51,7 +51,7 @@ const EditPaymentInfoCard: React.FC<EditPaymentInfoCardProps> = ({
         }
 
         try {
-            const response = await apiFetch('/api/users/update-wallet-address', {
+            const response = await apiFetch('/users/update-wallet-address', {
                 method: 'PATCH',
                 body: JSON.stringify({ walletAddress }),
             })
